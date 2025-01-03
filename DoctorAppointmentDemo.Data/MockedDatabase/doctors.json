@@ -1,0 +1,26 @@
+[
+  {
+    "DoctorType": 1,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Vasya",
+    "Surname": "Petrov",
+    "Phone": null,
+    "Email": null,
+    "Id": 5,
+    "CreatedAt": "2024-10-20T02:22:25.9091228+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  },
+  {
+    "DoctorType": 2,
+    "Experience": 20,
+    "Salary": 0.0,
+    "Name": "Ivan",
+    "Surname": "Kullishov",
+    "Phone": null,
+    "Email": null,
+    "Id": 6,
+    "CreatedAt": "2024-10-20T02:50:33.0282031+03:00",
+    "UpdatedAt": "0001-01-01T00:00:00"
+  }
+]
