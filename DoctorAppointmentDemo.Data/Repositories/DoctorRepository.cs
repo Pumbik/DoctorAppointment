@@ -1,34 +1,41 @@
-﻿using MyDoctorAppointment.Data.Configuration;
-using MyDoctorAppointment.Data.Interfaces;
-using MyDoctorAppointment.Domain.Entities;
+﻿
+using DoctorAppointmentDemo.Data.Interfaces;
+using DoctorAppointmentDemo.Domain.Entities;
 
-namespace MyDoctorAppointment.Data.Repositories
+namespace DoctorAppointmentDemo.Data.Repositories
 {
     public class DoctorRepository : GenericRepository<Doctor>, IDoctorRepository
     {
-        public override string Path { get; set; }
+		private readonly ISerializationService serializationService;
 
-        public override int LastId { get; set; }
+		public override string Path { get; set; }
 
-        public DoctorRepository()
-        {
-            dynamic result = ReadFromAppSettings();
+		public override int LastId { get; set; }
 
-            Path = result.Database.Doctors.Path;
-            LastId = result.Database.Doctors.LastId;
-        }
+		public DoctorRepository(string appSettings, ISerializationService serializationService) : base(appSettings, serializationService)
+		{
+			this.serializationService = serializationService;
 
-        public override void ShowInfo(Doctor doctor)
-        {
-            Console.WriteLine(); // implement view of all object fields
-        }
+			var result = ReadFromAppSettings();
 
-        protected override void SaveLastId()
-        {
-            dynamic result = ReadFromAppSettings();
-            result.Database.Doctors.LastId = LastId;
+			Path = result.Database.Doctors.Path;
+			LastId = result.Database.Doctors.LastId;
+		}
 
-            File.WriteAllText(Constants.AppSettingsPath, result.ToString());
-        }
-    }
+		public override void ShowInfo(Doctor source)
+		{
+			Console.WriteLine();
+		}
+
+		protected override void SaveLastId()
+		{
+			var result = ReadFromAppSettings();
+
+			result.Database.Doctors.LastId = LastId;
+
+			serializationService.Serialize(AppSettings, result);
+
+			//File.WriteAllText(Constants.JsonAppSettingsPath, result.ToString());
+		}
+	}
 }

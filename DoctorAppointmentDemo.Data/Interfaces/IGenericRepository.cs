@@ -1,6 +1,6 @@
-﻿using MyDoctorAppointment.Domain.Entities;
+﻿using DoctorAppointmentDemo.Domain.Entities;
 
-namespace MyDoctorAppointment.Data.Interfaces
+namespace DoctorAppointmentDemo.Data.Interfaces
 {
     public interface IGenericRepository<TSource> where TSource : Auditable
     {
@@ -13,5 +13,7 @@ namespace MyDoctorAppointment.Data.Interfaces
         IEnumerable<TSource> GetAll();
 
         bool Delete(int id);
+
+        void ShowInfo(TSource source);
     }
 }
